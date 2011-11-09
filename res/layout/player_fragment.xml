@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+     <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="wrap_content" android:id="@+id/linearLayout7" android:layout_weight="3" android:layout_height="match_parent">
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button04" android:width="300dp" android:text="8 - Jimmer Ferdett"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button03" android:width="300dp" android:text="7 - Kevin Garnett"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button02" android:width="300dp" android:text="2 - Malik Sealy"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button01" android:width="300dp" android:text="9 - Sam Cassell"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button10" android:width="300dp" android:text="32 - Christan Lattner"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button11" android:width="300dp" android:text="55 - Chuck Person"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button12" android:width="300dp" android:text="30 - Terry Porter"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button1" android:width="300dp" android:text="42 - Kevin Love"></Button>
+        </LinearLayout>

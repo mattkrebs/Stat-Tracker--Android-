@@ -1,0 +1,80 @@
+package com.fourtyfourlights.scoretracker;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.util.AttributeSet;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+public class PlayerButton extends LinearLayout {
+
+	private String name;
+	private Integer number;
+	private String color;
+
+
+
+	public void render(){
+		this.setBackgroundResource(R.drawable.playerleftbutton);
+		TextView playerName = new TextView(getContext());
+		playerName.setMinimumHeight(53);
+		playerName.setText(this.name);
+		playerName.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+		TextView playerNumber = new TextView(getContext());
+		playerNumber.setText(this.number.toString());
+		playerNumber.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+		playerNumber.setGravity(Gravity.RIGHT);
+		playerNumber.setPadding(0, 0, 5, 0);
+		this.setMinimumHeight(53);
+		this.setMinimumWidth(230);
+		this.addView(playerName);
+		this.addView(playerNumber);
+	}
+	public void setText(String name, Integer number, String color){
+		this.name = name;
+		this.number = number;
+		this.color = color;
+		render();
+	}
+	public PlayerButton(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		// TODO Auto-generated constructor stub
+		
+	}
+	public PlayerButton(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+	public PlayerButton(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		// TODO Auto-generated constructor stub
+		//this.setBackgroundResource(R.drawable.actionbutton);
+	
+	}
+
+	/* (non-Javadoc)
+	 * @see android.view.View#draw(android.graphics.Canvas)
+	 */
+	@Override
+	public void draw(Canvas canvas) {
+		// TODO Auto-generated method stub
+		super.draw(canvas);
+	}
+
+	/* (non-Javadoc)
+	 * @see android.view.View#onDraw(android.graphics.Canvas)
+	 */
+	@Override
+	protected void onDraw(Canvas canvas) {
+		
+	
+		
+		
+		super.onDraw(canvas);
+	}
+
+	
+}
