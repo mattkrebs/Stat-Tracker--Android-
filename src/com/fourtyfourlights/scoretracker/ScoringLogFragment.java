@@ -61,17 +61,14 @@ public class ScoringLogFragment extends ListFragment{
 		  String[] items = new String[actions.size()];
 		        
 		        for (int i = 0; i < actions.size(); i++)
-		            items[i] = actions.get(i).getActionName() + " - " + actions.get(i).getPlayer();
+		        	// 18:54 off-rebound 44:Krebs 
+		        	items[i] = actions.get(i).getGameTime() + " " + actions.get(i).getActionName().toLowerCase() + " " + actions.get(i).getPlayer();
 		        setListAdapter(new ArrayAdapter<String>(getActivity(), R.layout.action_list_item, items));
 		        
 		    
 	  }
 	  
-	  public void addItemToScoringList(ScoringAction item){
-		  actions.add(0,item);
-		  populateScoringList();
-	  }
-	  
+	 
 	  	@Override
 	    public void onSaveInstanceState (Bundle outState) {
 	        super.onSaveInstanceState(outState);

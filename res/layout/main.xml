@@ -8,64 +8,59 @@
       
              <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout2" android:layout_width="match_parent" android:orientation="vertical">
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:id="@+id/toplayout">
-        <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout3" android:orientation="vertical" android:layout_width="272dp">
-            <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="40dp" android:id="@+id/homeTeamName" android:text="Timberwolves" android:layout_gravity="right"></TextView>
-            <TextView android:layout_height="wrap_content" android:text="80" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:textSize="60dp" android:id="@+id/homeScore" android:layout_gravity="right"></TextView>
+        <RelativeLayout android:layout_height="wrap_content" android:id="@+id/linearLayout3" android:orientation="horizontal" android:layout_weight="3" android:layout_width="match_parent" android:gravity="right">
+            <TextView android:layout_height="wrap_content" android:textSize="40dp" android:id="@+id/homeTeamName" android:text="Timberwolves" android:layout_gravity="right" android:layout_weight="2" android:gravity="right" android:paddingRight="30dp" android:layout_width="wrap_content"></TextView>
+            <TextView android:layout_height="wrap_content" android:text="80" android:id="@+id/homeScore" android:layout_width="wrap_content" android:textSize="80dp" android:gravity="top|right" android:layout_toRightOf="@id/homeTeamName"></TextView>
+            <TextView android:text="10" android:layout_height="wrap_content" android:id="@+id/homeFouls" android:layout_width="wrap_content" android:layout_alignBaseline="@+id/foulText" android:layout_alignBottom="@+id/foulText" android:layout_toLeftOf="@+id/homeScore" android:paddingRight="30dp" android:textSize="40dp"></TextView>
+            <TextView android:layout_height="wrap_content" android:id="@+id/foulText" android:layout_width="wrap_content" android:layout_below="@+id/homeTeamName" android:layout_toLeftOf="@+id/homeFouls" android:paddingRight="10dp" android:textSize="25dp" android:text="fouls"></TextView>
+        </RelativeLayout>
+        <LinearLayout android:layout_height="match_parent" android:id="@+id/linearLayout5" android:orientation="vertical" android:layout_width="match_parent" android:layout_weight="4">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20:00" android:textSize="60dp" android:layout_gravity="center" android:id="@+id/gameclock"></TextView>
         </LinearLayout>
-        <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout4" android:orientation="vertical" android:layout_width="match_parent" android:layout_weight="5">
-            <TextView android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Timeouts" android:textSize="30dp"></TextView>
-            <TextView android:id="@+id/textView4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1 Full" android:textSize="25dp"></TextView>
-            <TextView android:id="@+id/textView5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2 Partial" android:textSize="25dp"></TextView>
-        </LinearLayout>
-        <LinearLayout android:layout_height="match_parent" android:id="@+id/linearLayout5" android:orientation="vertical" android:layout_width="match_parent" android:layout_weight="5">
-            <TextView android:id="@+id/textView6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20:00" android:textSize="60dp" android:textColor="#FF5500" android:layout_gravity="center"></TextView>
-        </LinearLayout>
-        <LinearLayout android:layout_height="wrap_content" android:id="@+id/LinearLayout01" android:orientation="vertical" android:layout_width="match_parent" android:layout_weight="5">
-            <TextView android:layout_height="wrap_content" android:text="Timeouts" android:layout_width="wrap_content" android:textSize="30dp" android:id="@+id/TextView02" android:layout_gravity="right"></TextView>
-            <TextView android:layout_height="wrap_content" android:text="1 Full" android:layout_width="wrap_content" android:textSize="25dp" android:id="@+id/TextView01" android:layout_gravity="right"></TextView>
-            <TextView android:layout_height="wrap_content" android:text="2 Partial" android:layout_width="wrap_content" android:textSize="25dp" android:id="@+id/TextView03" android:layout_gravity="right"></TextView>
-        </LinearLayout>
-        <LinearLayout android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="282dp" android:id="@+id/awayArea">
-            <TextView android:layout_height="wrap_content" android:text="Timberwolves" android:layout_width="wrap_content" android:textSize="40dp" android:id="@+id/awayTeamName" android:layout_gravity="left"></TextView>
-            <TextView android:layout_height="wrap_content" android:text="80" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:textSize="60dp" android:id="@+id/awayScore" android:layout_gravity="left"></TextView>
-        </LinearLayout>
+        <RelativeLayout android:layout_height="wrap_content" android:id="@+id/awayArea" android:orientation="horizontal" android:layout_width="match_parent" android:layout_weight="3">
+            <TextView android:text="80" android:layout_height="wrap_content" android:id="@+id/awayScore" android:textAppearance="?android:attr/textAppearanceMedium" android:textSize="80dp" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"></TextView>
+            <TextView android:text="Timberwolves" android:layout_height="wrap_content" android:paddingLeft="30dp" android:id="@+id/awayTeamName" android:textSize="40dp" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_toRightOf="@+id/awayScore"></TextView>
+            <TextView android:text="10" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/awayTeamName" android:layout_alignLeft="@+id/awayTeamName" android:paddingLeft="30dp" android:id="@+id/awayFouls" android:textSize="40dp"></TextView>
+            <TextView android:layout_height="wrap_content" android:paddingLeft="10dp" android:id="@+id/awayFoulText" android:layout_width="wrap_content" android:layout_below="@+id/awayTeamName" android:layout_toRightOf="@+id/awayFouls" android:textSize="25dp" android:text="fouls"></TextView>
+        </RelativeLayout>
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout6" android:layout_height="425dp">
     <ScrollView  android:layout_height="match_parent" android:layout_width="230dp">
-      <LinearLayout  android:orientation="vertical" android:layout_width="wrap_content" android:layout_weight="3" android:layout_height="match_parent" android:id="@+id/homePlayerList">
+      <LinearLayout  android:orientation="vertical" android:layout_weight="3" android:layout_height="match_parent" android:id="@+id/homePlayerList" android:layout_width="match_parent" android:paddingRight="10dp">
         </LinearLayout>
         </ScrollView> 
-     	<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+     	<FrameLayout android:layout_height="wrap_content" android:layout_width="800dp">
           <Button android:onClick="recordPoints" android:id="@+id/mainCourt" android:layout_gravity="bottom" android:background="@drawable/court" android:layout_width="800dp" android:layout_height="418dp"></Button>
-          <com.fourtyfourlights.scoretracker.ArcButton android:onClick="recordPoints" android:id="@+id/ltwopoint" android:layout_gravity="top" android:layout_marginTop="20dp" android:layout_height="370dp" android:layout_width="370dp" android:layout_marginLeft="-120dp"></com.fourtyfourlights.scoretracker.ArcButton>
+          <com.fourtyfourlights.scoretracker.ArcButton android:onClick="recordPoints" android:id="@+id/ltwopoint" android:layout_gravity="top" android:layout_height="370dp" android:layout_width="370dp" android:layout_marginTop="23dp" android:layout_marginLeft="-118dp"></com.fourtyfourlights.scoretracker.ArcButton>
+           <com.fourtyfourlights.scoretracker.ArcButton android:onClick="recordPoints" android:id="@+id/rtwopoint" android:layout_gravity="top" android:layout_height="370dp" android:layout_width="370dp" android:layout_marginTop="23dp" android:layout_marginLeft="547dp" android:overScrollMode="never"></com.fourtyfourlights.scoretracker.ArcButton>
       </FrameLayout>
       	 <ScrollView  android:layout_height="match_parent" android:layout_width="230dp">
    
-         <LinearLayout  android:orientation="vertical" android:layout_width="wrap_content" android:layout_weight="3" android:layout_height="match_parent" android:id="@+id/awayPlayerList">
+         <LinearLayout  android:orientation="vertical" android:layout_height="match_parent" android:id="@+id/awayPlayerList" android:layout_width="match_parent" android:paddingLeft="10dp">
         </LinearLayout>
         
         </ScrollView> 
     </LinearLayout>
     <LinearLayout android:id="@+id/bottomLayout" android:layout_height="fill_parent" android:orientation="horizontal" android:layout_width="fill_parent">
-        <RelativeLayout android:id="@+id/leftActions" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="3">
-            <Button android:layout_height="wrap_content" android:tag="@integer/def_rebound" android:id="@+id/Button04" android:onClick="actionClick" android:text="Def. Rebound" android:layout_width="175dp"></Button>
-            <Button android:layout_height="wrap_content" android:tag="@integer/off_rebound" android:layout_below="@+id/Button04" android:id="@+id/Button02" android:onClick="actionClick" android:text="Off. Rebound" android:layout_width="175dp"></Button>
-            <Button android:layout_toRightOf="@+id/Button04" android:layout_height="wrap_content" android:tag="@integer/assist" android:id="@+id/Button03" android:onClick="actionClick" android:text="Assist" android:layout_width="175dp"></Button>
-            <Button android:layout_toRightOf="@+id/Button03" android:layout_height="wrap_content" android:tag="@integer/steal" android:id="@+id/Button06" android:onClick="actionClick" android:text="Steal" android:layout_width="175dp"></Button>
-            <Button android:layout_toRightOf="@+id/Button02" android:layout_height="wrap_content" android:tag="@integer/ft_made" android:layout_below="@+id/Button03" android:id="@+id/Button05" android:onClick="actionClick" android:text="Free Throw Made" android:layout_width="175dp"></Button>
-            <Button android:layout_toRightOf="@+id/Button05" android:layout_height="wrap_content" android:tag="@integer/ft_missed" android:layout_below="@+id/Button06" android:id="@+id/Button01" android:onClick="actionClick" android:text="Free Throw Missed" android:layout_width="175dp"></Button>
+        <RelativeLayout android:id="@+id/leftActions" android:layout_width="wrap_content" android:layout_height="match_parent">
+            <Button android:tag="@integer/def_rebound" android:id="@+id/Button04" android:onClick="actionClick" android:text="Def. Rebound" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+            <Button android:tag="@integer/off_rebound" android:layout_below="@+id/Button04" android:id="@+id/Button02" android:onClick="actionClick" android:text="Off. Rebound" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+            <Button android:layout_toRightOf="@+id/Button04" android:tag="@integer/assist" android:id="@+id/Button03" android:onClick="actionClick" android:text="Assist" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+            <Button android:layout_toRightOf="@+id/Button03" android:tag="@integer/steal" android:id="@+id/Button06" android:onClick="actionClick" android:text="Steal" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+            <Button android:layout_toRightOf="@+id/Button02" android:tag="@integer/ft_made" android:layout_below="@+id/Button03" android:id="@+id/Button05" android:onClick="actionClick" android:text="Free Throw Made" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+            <Button android:layout_toRightOf="@+id/Button05" android:tag="@integer/ft_missed" android:layout_below="@+id/Button06" android:id="@+id/Button01" android:onClick="actionClick" android:text="Free Throw Missed" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
         </RelativeLayout>
     <fragment class="com.fourtyfourlights.scoretracker.ScoringLogFragment"
             android:id="@+id/frag_action"
             android:visibility="gone"
             android:layout_height="match_parent" android:layout_width="fill_parent" android:layout_weight="4"/>
-    <RelativeLayout android:layout_height="wrap_content" android:id="@+id/rightActions" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_weight="3">
-        <Button android:layout_height="wrap_content" android:tag="@integer/personal_foul" android:id="@+id/btnTurnover" android:onClick="actionClick" android:layout_weight="9" android:text="Personal Foul" android:layout_width="175dp"></Button>
-        <Button android:layout_below="@id/btnTurnover" android:layout_height="wrap_content" android:tag="@integer/technical_foul" android:id="@+id/btnFoul" android:onClick="actionClick" android:layout_weight="9" android:text="Technical Foul" android:layout_width="175dp"></Button>
-        <Button android:layout_height="wrap_content" android:tag="@integer/turnover" android:id="@+id/btnDefRebound" android:onClick="actionClick" android:text="Def Rebound" android:layout_toRightOf="@id/btnTurnover" android:layout_width="175dp"></Button>
-        <Button android:id="@+id/btnOffRebound" android:tag="@integer/off_rebound" android:text="Off Rebound" android:layout_height="wrap_content" android:onClick="actionClick" android:layout_weight="9" android:layout_toRightOf="@id/btnDefRebound" android:layout_width="175dp"></Button>
-        <Button android:id="@+id/btnSteal" android:tag="@integer/turnover" android:text="Turnover" android:layout_height="wrap_content" android:onClick="actionClick" android:layout_weight="9" android:layout_toRightOf="@id/btnFoul" android:layout_below="@id/btnDefRebound" android:layout_width="175dp"></Button>
-        <Button android:id="@+id/btnAssist" android:tag="@integer/assist" android:text="Assist" android:layout_height="wrap_content" android:onClick="actionClick" android:layout_weight="9" android:layout_below="@id/btnOffRebound" android:layout_toRightOf="@id/btnSteal" android:layout_width="175dp"></Button>
+    <RelativeLayout android:layout_height="wrap_content" android:id="@+id/rightActions" android:orientation="horizontal" android:gravity="right" android:layout_width="wrap_content">
+        <Button android:tag="@integer/personal_foul" android:id="@+id/btnTurnover" android:onClick="actionClick" android:layout_weight="9" android:text="Personal Foul" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+        <Button android:layout_below="@id/btnTurnover" android:tag="@integer/technical_foul" android:id="@+id/btnFoul" android:onClick="actionClick" android:layout_weight="9" android:text="Technical Foul" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+        <Button android:id="@+id/btnDefRebound" android:onClick="actionClick" android:layout_toRightOf="@id/btnTurnover" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton" android:tag="@integer/substitution" android:text="Substitution"></Button>
+        <Button android:id="@+id/btnOffRebound" android:onClick="actionClick" android:layout_weight="9" android:layout_toRightOf="@id/btnDefRebound" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton" android:text="Block" android:tag="@integer/block"></Button>
+        <Button android:id="@+id/btnSteal" android:tag="@integer/turnover" android:text="Turnover" android:onClick="actionClick" android:layout_weight="9" android:layout_toRightOf="@id/btnFoul" android:layout_below="@id/btnDefRebound" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton"></Button>
+        <Button android:id="@+id/btnAssist" android:onClick="actionClick" android:layout_weight="9" android:layout_below="@id/btnOffRebound" android:layout_toRightOf="@id/btnSteal" android:layout_width="149dp" android:layout_height="79dp" android:background="@drawable/actionbutton" android:tag="@integer/full_timeout" android:text="Timeout"></Button>
     </RelativeLayout>
     </LinearLayout>
     </LinearLayout>

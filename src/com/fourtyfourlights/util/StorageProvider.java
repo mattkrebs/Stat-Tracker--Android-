@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.json.JSONArray;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,7 +18,7 @@ public class StorageProvider {
 
 	private static final String DATABASE_NAME = "stattrackr.db";
 	
-	private static final int DATABASE_VERSION = 8;
+	private static final int DATABASE_VERSION = 9;
 	private static final String ACTION_LOG_TABLE_NAME = "actionlog";
 	private static final String ACTION_TYPE_TABLE_NAME = "actiontype";
 	private static final String GAME_TABLE_NAME = "game";
@@ -112,7 +113,7 @@ public class StorageProvider {
 		
 		if (cursor.moveToFirst()){
 			do{
-				ScoringAction action = new ScoringAction(cursor.getInt(0), cursor.getString(2), cursor.getString(1));
+				ScoringAction action = new ScoringAction(cursor.getInt(0), cursor.getString(2), cursor.getString(1), cursor.getString(3));
 				list.add(action);
 			}while(cursor.moveToNext());
 		}
@@ -202,6 +203,26 @@ public class StorageProvider {
 		
 	}
 
+	public List<Team> getTeams(){
+		List<Team> teams = new ArrayList<Team>();
+		
+		String q = "select id, team_name, team_color from " + TEAM_TABLE_NAME;
+		
+		Cursor cursor = this.db.rawQuery(q, null);
+		
+		if (cursor.moveToFirst()){
+			do{
+				Team team = new Team(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+				teams.add(team);
+			}while(cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed()){
+			cursor.close();
+		}
+		close();
+		return teams;
+		
+	}
 	public Team getTeamById(int teamId) {
 		Team team = null;
 		String q = "select id, team_name, team_color from " + TEAM_TABLE_NAME + " where id = " + teamId;
@@ -222,7 +243,22 @@ public class StorageProvider {
 	}
 	
 	
+	//UPDATE METHODS
 	
+	public void updateTeams(List<Team> teams){
+		
+		for(Team t : teams){
+			String strFilter = "id=" + t.getTeamId();
+			ContentValues args = new ContentValues();
+			args.put("team_name", t.getTeamName());
+			args.put("team_color", t.getTeamColor());
+			
+
+		this.db.update(TEAM_TABLE_NAME, args, strFilter, null);
+
+		}
+		close();
+	}
 	
 	
 }

@@ -15,4 +15,7 @@ public class ThisApplication extends Application {
 	{
 		return ThisApplication.context;
 	}
+	
+	
+
 }

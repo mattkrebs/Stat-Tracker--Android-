@@ -2,4 +2,13 @@
 <resources>
     <string name="hello">Hello World, ScoreTrackrActivity!</string>
     <string name="app_name">ScoreTrackr</string>
+    <string name="api_base_uri">http://stattrackr.apphb.com/api/</string>
+    
+    <string name="api_key">8e682cad-35ab-476a-a410-0e008150600c</string>
+    <string name="api_authenticate">authenticate</string>
+    <string name="api_team_add">addteam</string>
+    <string name="api_team_update">updateteam/</string>
+    <string name="api_team_delete">deleteteam/</string>
+    <string name="api_team_all">teams</string>
+    <string name="toast_sync_error">Sync error: </string>
 </resources>

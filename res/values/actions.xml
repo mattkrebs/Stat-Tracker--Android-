@@ -16,4 +16,5 @@
     <integer name="two_pointer_missed">14</integer>
     <integer name="three_pointer_missed">15</integer>
     <integer name="partial_timeout">16</integer>
+    <integer name="block">17</integer>
 </resources>

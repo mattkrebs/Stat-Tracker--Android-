@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="def_rebound">1</integer>
+    <integer name="off_rebound">2</integer>
+    <integer name="two_pointer_made">3</integer>
+    <integer name="three_pointer_made">4</integer>
+    <integer name="ft_made">5</integer>
+    <integer name="ft_missed">6</integer>
+    <integer name="steal">7</integer>
+    <integer name="turnover">8</integer>
+    <integer name="assist">9</integer>
+    <integer name="personal_foul">10</integer>
+    <integer name="technical_foul">11</integer>
+    <integer name="substitution">12</integer>
+    <integer name="full_timeout">13</integer>
+    <integer name="two_pointer_missed">14</integer>
+    <integer name="three_pointer_missed">15</integer>
+    <integer name="partial_timeout">16</integer>
+</resources>

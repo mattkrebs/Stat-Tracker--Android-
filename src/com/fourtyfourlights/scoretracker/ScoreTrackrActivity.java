@@ -1,13 +1,16 @@
 package com.fourtyfourlights.scoretracker;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fourtyfourlights.domain.Game;
 import com.fourtyfourlights.domain.Player;
 import com.fourtyfourlights.domain.ScoringAction;
 import com.fourtyfourlights.domain.ScoringAction.ActionType;
+import com.fourtyfourlights.util.AdvancedCountdownTimer;
 import com.fourtyfourlights.util.StorageProvider;
 
 import flexjson.JSONSerializer;
@@ -15,23 +18,28 @@ import flexjson.JSONSerializer;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.renderscript.Font;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.graphics.Typeface;
 public class ScoreTrackrActivity extends Activity {
     /** Called when the activity is first created. */
 	
@@ -47,16 +55,36 @@ public class ScoreTrackrActivity extends Activity {
 	
 	private TextView homeScore;
 	private TextView awayScore;
-
+	private TextView gameClock;
+	
 	private TextView homeTeamName;
 	private TextView awayTeamName;
 	
 	private final int HOMETEAM = 0;
 	private final int AWAYTEAM = 1;
 	
+	private Boolean clockpaused = true;
 	private Game game;
 	
+	//Fouls
+	private TextView homeFouls;
+	private TextView awayFouls;
+	private TextView homeFoulText;
+	private TextView awayFoulText;
 	
+	private Typeface scoreboardfont;
+	private Typeface athleticfont;
+	private Typeface gothicBfont;
+	private Typeface gothicBIfont;
+	private Typeface gothicIfont;
+	private Typeface gothicfont;
+	
+	private CurrentTeam cTeam;
+	
+	private int sTeam;
+	
+	 GameClock counter;
+	private int GAMEID = 1;
 	
 	
     @Override
@@ -64,16 +92,85 @@ public class ScoreTrackrActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        //SetTypeFace
+        scoreboardfont = Typeface.createFromAsset(getAssets(),"fonts/Ozone.ttf");
+        athleticfont = Typeface.createFromAsset(getAssets(),"fonts/Athletic.TTF");
+        gothicIfont= Typeface.createFromAsset(getAssets(),"fonts/GOTHICI.TTF");
+        gothicBIfont = Typeface.createFromAsset(getAssets(),"fonts/GOTHICBI.TTF");
+        gothicBfont = Typeface.createFromAsset(getAssets(),"fonts/GOTHICB.TTF");
+        gothicfont = Typeface.createFromAsset(getAssets(),"fonts/GOTHIC.TTF");
+        
+        homeFouls = (TextView)this.findViewById(R.id.homeFouls);
+        homeFoulText = (TextView)this.findViewById(R.id.foulText);
+        awayFouls = (TextView)this.findViewById(R.id.awayFouls);
+        awayFoulText = (TextView)this.findViewById(R.id.awayFoulText);
+        
+        homeFouls.setTypeface(scoreboardfont);
+        homeFoulText.setTypeface(gothicfont);
+        awayFouls.setTypeface(scoreboardfont);
+        awayFoulText.setTypeface(gothicfont);
+        
+        
+        
+        
         homePlayers = (LinearLayout)this.findViewById(R.id.homePlayerList);
         awayPlayers = (LinearLayout)this.findViewById(R.id.awayPlayerList);
         
         homeScore = (TextView)this.findViewById(R.id.homeScore);
         awayScore = (TextView)this.findViewById(R.id.awayScore);
         
+        gameClock = (TextView)this.findViewById(R.id.gameclock);
+        gameClock.setTextColor(Color.RED);
+        gameClock.setTypeface(scoreboardfont);
+        // (minutes * 60000) 60000 = milliseconds in a minute
+        counter = new GameClock(20 * 60000, 1000);
+        gameClock.setOnLongClickListener(new OnLongClickListener(){
+
+     			@Override
+     			public boolean onLongClick(View arg0) {
+     				// TODO Auto-generated method stub
+     				if (clockpaused){
+     					 counter.reset();
+     					
+     				}
+     				return false;
+     			}
+             	
+             });
+        gameClock.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (clockpaused){
+					 counter.start();
+					 clockpaused = false;
+					 gameClock.setTextColor(Color.GREEN);
+				}else
+				{
+					counter.pause();
+					clockpaused = true;
+					gameClock.setTextColor(Color.RED);
+				}
+				
+			}
+        	
+        });
+        
+     
+       
+       
+        
+        
+        homeScore.setTypeface(scoreboardfont);
+        awayScore.setTypeface(scoreboardfont);
+        
         homeTeamName = (TextView)this.findViewById(R.id.homeTeamName);
-        awayTeamName = (TextView)this.findViewById(R.id.homeTeamName);
+        awayTeamName = (TextView)this.findViewById(R.id.awayTeamName);
+        homeTeamName.setTypeface(scoreboardfont);
+        awayTeamName.setTypeface(scoreboardfont);
         
-        
+      
    	 	actionFrag = (ScoringLogFragment) getFragmentManager().findFragmentById(R.id.frag_action);
    	 	//actionFrag.populateScoringList();
 
@@ -82,24 +179,34 @@ public class ScoreTrackrActivity extends Activity {
    		Button twopointer = (Button)this.findViewById(R.id.ltwopoint);
     	ShapeDrawable d = new ShapeDrawable(new ArcShape(270, 180));
 		d.getPaint().setColor(0x88FF8844);
-	
+		
+ 		Button awaytwopointer = (Button)this.findViewById(R.id.rtwopoint);
+    	ShapeDrawable da = new ShapeDrawable(new ArcShape(90, 180));
+		da.getPaint().setColor(0x88FF8844);
+		awaytwopointer.setBackgroundDrawable(da);
 		twopointer.setBackgroundDrawable(d);
 		homeScore.setText("0");
+		awayScore.setText("0");
 		storage = new StorageProvider(getApplicationContext());
 	
 		//	seedData();
 		
-		game = storage.getGame(1);
+		game = storage.getGame(GAMEID);
+		
+		homeTeamName.setText(game.getHomeTeam().getTeamName().toString().toUpperCase());
+		awayTeamName.setText(game.getAwayTeam().getTeamName().toString().toUpperCase());
 		
         for (Player player : game.getHomeTeam().getPlayers()){
         	PlayerButton b = new PlayerButton(this);
         	b.setText(player.getName(), player.getNumber(), "");
         	b.setTag(player.getID());
         	
+        	
         	b.setOnClickListener(new OnClickListener(){
         		public void onClick(View v){
         			PlayerButton btn = (PlayerButton)v;
         			sPlayer = findPlayer(Integer.parseInt(btn.getTag().toString()), game.getHomeTeam().getPlayers());
+        			cTeam = CurrentTeam.HOMETEAM;
         		}
         	});
         	homePlayers.addView(b);
@@ -107,12 +214,15 @@ public class ScoreTrackrActivity extends Activity {
         
         for (Player player : game.getAwayTeam().getPlayers()){
         	PlayerButton b = new PlayerButton(this);
+        	b.setDirection("right");
         	b.setText(player.getName(), player.getNumber(), "");
         	b.setTag(player.getID());
+        	
         	b.setOnClickListener(new OnClickListener(){
         		public void onClick(View v){
         			PlayerButton btn = (PlayerButton)v;
         			sPlayer = findPlayer(Integer.parseInt(btn.getTag().toString()), game.getAwayTeam().getPlayers());
+        			cTeam = CurrentTeam.AWAYTEAM;
         		}
         	});
         	awayPlayers.addView(b);
@@ -121,13 +231,13 @@ public class ScoreTrackrActivity extends Activity {
         
     }
 
-public Player findPlayer(int id, List<Player> players){
-	for (Player p :players){
-		if (p.getID().equals(id))
-			return p;
+	public Player findPlayer(int id, List<Player> players){
+		for (Player p :players){
+			if (p.getID().equals(id))
+				return p;
+		}
+		return null;
 	}
-	return null;
-}
 	
 	public void seedData(){
 		List<Player> p = new ArrayList<Player>();
@@ -171,6 +281,7 @@ public Player findPlayer(int id, List<Player> players){
 		provider.actionTypeInsert(14, "Partial Timeout");
 		provider.actionTypeInsert(15, "2pt FG Missed");
 		provider.actionTypeInsert(16, "3pt FG Missed");
+		provider.actionTypeInsert(17, "Blocked Shot");
 		
 		
 		
@@ -178,24 +289,43 @@ public Player findPlayer(int id, List<Player> players){
 		provider.close();
 		
 	}
+	
+	
+	
+	
  	public void recordPoints(View button){
-    	
-    	if (button.getId() == R.id.ltwopoint){
-    		ArcButton btn = (ArcButton)button;
-        	
-        	if (btn.getIsTwoPointer()){
-        		Log.w("SCORE", "ITS A TWO POINTER");
-        		int i = Integer.parseInt(homeScore.getText().toString()) + 2;
-        		homeScore.setText(Integer.toString(i));
-        		
-        	}else{
-        		int i = Integer.parseInt(homeScore.getText().toString()) + 3;
-        		homeScore.setText(Integer.toString(i));
+ 		int i;
+    	if(sPlayer != null){
+    		if (button.getId() == R.id.ltwopoint){
+        		ArcButton btn = (ArcButton)button;
+            	
+            	if (btn.getIsTwoPointer()){
+            		Log.w("SCORE", "ITS A TWO POINTER");
+            		i = 2;
+            		setAction(3, sPlayer);
+            	}else{
+            		i = 3;
+            		setAction(4, sPlayer);
+            	}
+        	} else {
+        		i = 3;
+        		setAction(4, sPlayer);
         	}
-    	} else {
-    		int i = Integer.parseInt(homeScore.getText().toString()) + 3;
-    		homeScore.setText(Integer.toString(i));
+    		
+    		if (cTeam.equals(CurrentTeam.HOMETEAM)){
+    			sPlayer = null;
+    			i = Integer.parseInt(homeScore.getText().toString()) + i;
+    			homeScore.setText(Integer.toString(i));
+    		}else{
+    			sPlayer = null;
+    			i = Integer.parseInt(awayScore.getText().toString()) + i;
+    			awayScore.setText(Integer.toString(i));
+    		}
+    			
+    	}else{
+			Toast.makeText(getApplicationContext(), "Please Click on a Player First", Toast.LENGTH_SHORT).show();
     	}
+    	
     	
     	
     }
@@ -209,20 +339,12 @@ public Player findPlayer(int id, List<Player> players){
 	}
 	
 	public void actionClick(View button){
-		// TODO Auto-generated method stub
-		
-		storage = new StorageProvider(getApplicationContext());
-		
 		Button btn = (Button)button;
 		
 		Log.w("Action Click", btn.getText().toString());
 		sAction = Integer.parseInt(btn.getTag().toString());
 		if (sPlayer != null){
-			Toast.makeText(getApplicationContext(), sPlayer.getName() + " : " + sAction, Toast.LENGTH_SHORT).show();
-			//TODO:FIX INSERT
-			setAction(sAction, HOMETEAM, sPlayer);
-			
-			
+			setAction(sAction, sPlayer);
 			sAction = 0;
 			sPlayer = null;
 		} else{
@@ -234,12 +356,41 @@ public Player findPlayer(int id, List<Player> players){
 	}
 	
 	
-	public void setAction(int action, int team, Player player){
-		storage.actionInsert(sAction, player.getName(), player.getID(), "10:50", 1);
+	public void setAction(int action, Player player){
+		storage = new StorageProvider(getApplicationContext());
+		storage.actionInsert(action, player.getName(), player.getID(), gameClock.getText().toString(), GAMEID);
+		storage.close();
 		actionFrag.refresh();
+		
 	}
 	
 	
+	public class GameClock extends AdvancedCountdownTimer{
+
+		public GameClock(long millisInFuture, long countDownInterval) {
+			super(millisInFuture, countDownInterval);
+			// TODO Auto-generated constructor stub
+		}
+		
+		@Override
+		public void onFinish() {
+			gameClock.setText("done");
+		}
+		
+
+		
+		@Override
+		public void onTick(long millisUntilFinished, int percent) {
+			// TODO Auto-generated method stub
+			SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
+			String dateString = formatter.format(new Date(millisUntilFinished));
+			gameClock.setText(dateString);
+		}
+		
+	}
 	
+	public enum CurrentTeam{
+		HOMETEAM,AWAYTEAM
+	}
 
 }

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/BasketballLeague/!svn/ver/11/trunk/AndroidApp/ScoreTrackr/res/layout
+END
+main.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/BasketballLeague/!svn/ver/32/trunk/AndroidApp/ScoreTrackr/res/layout/main.xml
+END
+player_list_item.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/BasketballLeague/!svn/ver/32/trunk/AndroidApp/ScoreTrackr/res/layout/player_list_item.xml
+END
+action_list_item.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/BasketballLeague/!svn/ver/11/trunk/AndroidApp/ScoreTrackr/res/layout/action_list_item.xml
+END
+login.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/BasketballLeague/!svn/ver/5/trunk/AndroidApp/ScoreTrackr/res/layout/login.xml
+END
+partialscore.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/BasketballLeague/!svn/ver/5/trunk/AndroidApp/ScoreTrackr/res/layout/partialscore.xml
+END
+player_fragment.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/BasketballLeague/!svn/ver/5/trunk/AndroidApp/ScoreTrackr/res/layout/player_fragment.xml
+END

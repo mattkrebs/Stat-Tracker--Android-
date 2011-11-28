@@ -8,6 +8,7 @@ public class ScoringAction {
 	private String player;
 	private String actionName;
 	private String time;
+		
 	
 	public void setID(int value){
 		this.actionId = value;
@@ -18,6 +19,9 @@ public class ScoringAction {
 	}
 	public void setActionName(String value){
 		this.actionName = value;
+	}
+	public void setGameTime(String value){
+		this.time = value;
 	}
 	public int getId(){
 		return this.actionId;
@@ -30,12 +34,16 @@ public class ScoringAction {
 		return this.actionName;
 	}
 	
+	public String getGameTime(){
+		return this.time;
+	}
 	
 	
-	public ScoringAction(int Id, String player, String action){
+	public ScoringAction(int Id, String player, String action, String time){
 		setID(Id);
 		setPlayer(player);
 		setActionName(action);
+		setGameTime(time);
 	}
 	
 	
