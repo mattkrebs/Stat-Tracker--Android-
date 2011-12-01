@@ -1,0 +1,109 @@
+package com.fourtyfourlights.scoretracker.domain;
+
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import flexjson.JSONDeserializer;
+
+public class Player {
+
+	private String Name;
+	private Integer Number;
+	private Integer ID;
+	private Integer TeamId;
+
+	public void setID(Integer value){
+		this.ID = value;
+	}
+	
+	public void setName(String value){
+		this.Name = value;
+	}
+	public void setNumber(Integer value){
+		this.Number = value;
+	}
+	
+	public void setTeamId(Integer value){
+		this.TeamId = value;
+	}
+	
+	
+	public Integer getID(){
+		return this.ID;
+	}
+	public String getName(){
+		return this.Name;
+	}
+	
+	public Integer getNumber(){
+		return this.Number;
+	}
+	public Integer getTeamId(){
+		return this.TeamId;
+	}
+	
+	
+	public Player(Integer id, String name, Integer number, Integer teamId){
+		setID(id);
+		setName(name);
+		setNumber(number);
+		setTeamId(teamId);
+	}
+	
+	public Player(){
+	
+	}	
+	
+	public JSONObject serialize(){
+		JSONObject player = new JSONObject();
+		try{
+
+			player.put("ID", this.getID());
+			player.put("Name", this.getName());
+			player.put("Number", this.getNumber());
+		}catch(JSONException ex){
+			ex.printStackTrace();
+		}
+		
+		return player;
+
+		
+	}
+	
+	// { "id": "1", "name" : "Matt Krebs", "number": "44" }
+	
+	public static ArrayList<Player> deserializeBlob(String blob){
+		
+		return new JSONDeserializer<ArrayList<Player>>().deserialize(blob);
+		
+		/*
+		JSONArray array;
+		ArrayList<Player> players;
+		try {
+			array = new JSONArray(blob);
+			players = new ArrayList<Player>();
+			for (int i = 0; i < array.length(); i++){
+				JSONObject jsonObject = array.getJSONObject(i);
+				Player p = new Player(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"));
+				players.add(p);
+				
+			}
+			return players;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		*/
+		
+		
+		
+	}
+	
+	
+	
+	
+}

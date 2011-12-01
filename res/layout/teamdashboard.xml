@@ -3,11 +3,14 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent" android:orientation="horizontal">
-   <fragment class="com.fourtyfourlights.scoretracker.ItemListFragment"
+   <fragment class="com.fourtyfourlights.scoretracker.ui.ItemListFragment"
             android:id="@+id/frag_list"
             android:visibility="gone"
             android:layout_marginTop="?android:attr/actionBarSize"
             android:layout_width="300dp"
             android:layout_height="match_parent" />
+   <FrameLayout android:id="@+id/details" android:layout_width="0px"
+            android:layout_height="match_parent" android:layout_weight="4"/>
+
    
 </LinearLayout>
